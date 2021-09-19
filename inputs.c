@@ -18,7 +18,7 @@ static int	countandcheckbs(char *str)
 			while (ft_isdigit(str[a]))
 				a++;
 			n++;
-			if ((str[a] != ' ' || str[a] == '\n') && str[a])
+			if ((str[a] != ' ' && str[a] != '\n') && str[a])
 				exit (0);
 		}
 		else if (str[a])
@@ -38,24 +38,27 @@ t_par	putthingsinmap(t_par par, char	*full_line)
 	x = 0;
 	y = 0;
 	p = 0;
-	while (x < par.somx)
+	par.highest = -2147483648;
+	par.lowest = 2147483647;
+	while (y < par.somy)
 	{
-		y = 0;
-		if (full_line[p] == '\n')
-			p++;
-		while (y < par.somy)
+		x = 0;
+		while (x < par.somx)
 		{
-			while (full_line[p] == ' ' && full_line[p])
+			if (full_line[p] == '\n')
 				p++;
-/*			if (full_line[p] == '\n')
-				break ;*/
+			while (full_line[p] == ' ')
+				p++;
 			par.map[x][y] = ft_atoi(&full_line[p++]);
-			while (ft_isdigit(full_line[p]) && full_line[p])
+			if (par.map[x][y] > par.highest)
+				par.highest = par.map[x][y];
+			if (par.map[x][y] < par.lowest)
+				par.lowest = par.map[x][y];
+			while (ft_isdigit(full_line[p]))
 				p++;
-			y++;
+			x++;
 		}
-		p++;
-		x++;
+		y++;
 	}
 	return (par);
 }
@@ -76,6 +79,8 @@ t_par	createstruct(char **argv)
 		full_line = ft_strjoin(full_line, linetoadd);
 		par.somy++;
 	}
+	full_line = ft_strjoin(full_line, "\n");
+	full_line = ft_strjoin(full_line, linetoadd);
 	par.somx = countandcheckbs(full_line) / par.somy;
 	par.map = ft_calloc(sizeof(int *), par.somx);
 	par.mapx = ft_calloc(sizeof(int *), par.somx);

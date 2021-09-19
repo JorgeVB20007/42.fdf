@@ -30,7 +30,6 @@ void	traceline(int difx, int dify, int xi, int yi, void *gnrl_ptr, void *win_ptr
 	int	dir;
 
 	a = 0;
-	printf("\n\n");
 	if (abs(difx) > abs(dify))
 	{
 		dir = difx / (abs(difx));
@@ -41,12 +40,12 @@ void	traceline(int difx, int dify, int xi, int yi, void *gnrl_ptr, void *win_ptr
 			a++;
 		}
 	}
-	else
+	else if (abs(difx) < abs(dify))
 	{
 		dir = dify / (abs(dify));
 		while (a < abs(dify))
 		{
-			mlx_pixel_put (gnrl_ptr, win_ptr, xi + (difx / abs(dify)) * a, yi + (dify * a), 16776960);
+			mlx_pixel_put (gnrl_ptr, win_ptr, (int)(xi + ((float)difx / fabsf((float)dify)) * (float)a), yi + ((dify / (abs(dify))) * a), 16753920);
 //			printf("\nPixel placed at (%d,%d)", xi + (difx * a), yi + (dify / abs(difx)) * a);
 			a++;
 		}
@@ -68,7 +67,6 @@ void	makinglines(t_par par, void *gnrl_ptr, void *win_ptr)
 		{
 			difx = par.mapx[x + 1][y] - par.mapx[x][y];
 			dify = par.mapy[x + 1][y] - par.mapy[x][y];
-			printf("\n%d, %d", difx, dify);
 			if (dify || difx)
 				traceline(difx, dify, par.mapx[x][y], par.mapy[x][y], gnrl_ptr, win_ptr);
 			y++;

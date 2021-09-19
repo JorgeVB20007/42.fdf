@@ -11,18 +11,22 @@
 
 # define TX	1000
 # define TY 1000
-# define SOA 50
+# define SOA 40
 
 typedef struct s_par
 {
-	int	**map;
-	int	**mapx;
-	int	**mapy;
-	int	somx;
-	int	somy;
-	int	soa;
-	int	centerx;
-	int	centery;
+	void	*gnrl_ptr;
+	void	*win_ptr;
+	int		**map;
+	int		**mapx;
+	int		**mapy;
+	int		somx;
+	int		somy;
+	int		soa;
+	int		centerx;
+	int		centery;
+	int		highest;
+	int		lowest;
 }					t_par;
 
 typedef struct s_line
