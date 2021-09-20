@@ -33,9 +33,8 @@ t_par	putthingsinmap(t_par par, char	*full_line)
 {
 	int	x;
 	int	y;
-	int p;
+	int	p;
 
-	x = 0;
 	y = 0;
 	p = 0;
 	par.highest = -2147483648;
@@ -95,5 +94,8 @@ t_par	createstruct(char **argv)
 	}
 	par = putthingsinmap(par, full_line);
 	par.soa = SOA;
+	par.angle = 6.0;
+	par.prevcenterx = 0;
+	par.prevcentery = 0;
 	return (par);
 }

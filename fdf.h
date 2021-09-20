@@ -25,8 +25,11 @@ typedef struct s_par
 	int		soa;
 	int		centerx;
 	int		centery;
+	int		prevcenterx;
+	int		prevcentery;
 	int		highest;
 	int		lowest;
+	float	angle;
 }					t_par;
 
 typedef struct s_line
