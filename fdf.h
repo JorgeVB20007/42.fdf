@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvacaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/21 20:18:27 by jvacaris          #+#    #+#             */
+/*   Updated: 2021/09/21 20:18:28 by jvacaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
@@ -23,10 +35,10 @@ typedef struct s_par
 	int		somx;
 	int		somy;
 	int		soa;
-	int		centerx;
-	int		centery;
-	int		prevcenterx;
-	int		prevcentery;
+	int		cx;
+	int		cy;
+	int		pcx;
+	int		pcy;
 	int		highest;
 	int		lowest;
 	float	angle;
@@ -34,17 +46,15 @@ typedef struct s_par
 
 typedef struct s_line
 {
-	int	xi;
-	int	yi;
-	int	xf;
-	int	yf;
-	int	xa;
-	int	ya;
+	int	dfx;
+	int	dfy;
 }					t_line;
 
 int		main(int argc, char **argv);
 t_par	createstruct(char **argv);
-void	makinglines(t_par par, void *gnrl_ptr, void *win_ptr);
-t_par	calculatemappoints(t_par par, void *gnrl_ptr, void *win_ptr);
+void	makinglines(t_par par);
+t_par	calculatemappoints(t_par par);
+int		key_pressed(int keycode, t_par *par);
+t_par	magic_happening(t_par par);
 
 #endif

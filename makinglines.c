@@ -1,19 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   makinglines.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvacaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/21 20:19:04 by jvacaris          #+#    #+#             */
+/*   Updated: 2021/09/21 20:19:06 by jvacaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 /*
-t_line params:
-
-	int	xi;
-	int	yi;
-	int	xf;
-	int	yf;
-	int	xa;
-	int	ya;
-*/
-
 t_line	initline(void)
 {
-	t_line line;
+	t_line	line;
 
 	line.xi = 0;
 	line.yi = 0;
@@ -23,41 +25,49 @@ t_line	initline(void)
 	line.ya = 0;
 	return (line);
 }
-
-void	traceline(int difx, int dify, int xi, int yi, void *gnrl_ptr, void *win_ptr)
+*/
+void	tracelinetwo(t_line line, t_par par, int xi, int yi)
 {
 	int	a;
 	int	dir;
 
 	a = 0;
-	if (abs(difx) > abs(dify))
+	dir = line.dfx / (abs(line.dfx));
+	while (a < abs(line.dfx))
 	{
-		dir = difx / (abs(difx));
-		while (a < abs(difx))
-		{
-			mlx_pixel_put (gnrl_ptr, win_ptr, xi + ((difx / (abs(difx))) * a), (int)(yi + ((float)dify / fabsf((float)difx)) * (float)a), 16776960);
-//			printf("\nPixel placed at (%d,%d)", xi + (difx * a), yi + (dify / abs(difx)) * a);
-			a++;
-		}
+		mlx_pixel_put (par.gnrl_ptr, par.win_ptr, xi + ((line.dfx \
+		/ (abs(line.dfx))) * a), (int)(yi + ((float)line.dfy / \
+		fabsf((float)line.dfx)) * (float)a), 16776960);
+		a++;
 	}
-	else if (abs(difx) < abs(dify))
+}
+
+void	traceline(t_line line, t_par par, int xi, int yi)
+{
+	int	a;
+	int	dir;
+
+	a = 0;
+	if (abs(line.dfx) > abs(line.dfy))
+		tracelinetwo(line, par, xi, yi);
+	else if (abs(line.dfx) <= abs(line.dfy))
 	{
-		dir = dify / (abs(dify));
-		while (a < abs(dify))
+		dir = line.dfy / (abs(line.dfy));
+		while (a < abs(line.dfy))
 		{
-			mlx_pixel_put (gnrl_ptr, win_ptr, (int)(xi + ((float)difx / fabsf((float)dify)) * (float)a), yi + ((dify / (abs(dify))) * a), 16753920);
-//			printf("\nPixel placed at (%d,%d)", xi + (difx * a), yi + (dify / abs(difx)) * a);
+			mlx_pixel_put (par.gnrl_ptr, par.win_ptr, (int)(xi + \
+			((float)line.dfx / fabsf((float)line.dfy)) * (float)a), \
+			yi + ((line.dfy / (abs(line.dfy))) * a), 16753920);
 			a++;
 		}
 	}
 }
 
-void	makinglines(t_par par, void *gnrl_ptr, void *win_ptr)
+void	makinglinesx(t_par par)
 {
-	int	x;
-	int y;
-	int	difx;
-	int	dify;
+	t_line	line;
+	int		x;
+	int		y;
 
 	x = 0;
 	while (x + 1 < par.somx)
@@ -65,28 +75,35 @@ void	makinglines(t_par par, void *gnrl_ptr, void *win_ptr)
 		y = 0;
 		while (y < par.somy)
 		{
-			difx = par.mapx[x + 1][y] - par.mapx[x][y];
-			dify = par.mapy[x + 1][y] - par.mapy[x][y];
-			if (dify || difx)
-				traceline(difx, dify, par.mapx[x][y], par.mapy[x][y], gnrl_ptr, win_ptr);
+			line.dfx = par.mapx[x + 1][y] - par.mapx[x][y];
+			line.dfy = par.mapy[x + 1][y] - par.mapy[x][y];
+			if (line.dfy || line.dfx)
+				traceline(line, par, par.mapx[x][y], par.mapy[x][y]);
 			y++;
 		}
 		x++;
 	}
+}
+
+void	makinglines(t_par par)
+{
+	t_line	line;
+	int		x;
+	int		y;
+
+	makinglinesx(par);
 	y = 0;
 	while (y + 1 < par.somy)
 	{
 		x = 0;
 		while (x < par.somx)
 		{
-			difx = par.mapx[x][y + 1] - par.mapx[x][y];
-			dify = par.mapy[x][y + 1] - par.mapy[x][y];
-			if (dify || difx)
-				traceline(difx, dify, par.mapx[x][y], par.mapy[x][y], gnrl_ptr, win_ptr);
+			line.dfx = par.mapx[x][y + 1] - par.mapx[x][y];
+			line.dfy = par.mapy[x][y + 1] - par.mapy[x][y];
+			if (line.dfy || line.dfx)
+				traceline(line, par, par.mapx[x][y], par.mapy[x][y]);
 			x++;
 		}
 		y++;
 	}
-//	mlx_pixel_put (gnrl_ptr, win_ptr, 250, 250, 16777215);
-
 }
