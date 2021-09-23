@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf_bonus.h"
 
 /*
 t_line	initline(void)
@@ -26,7 +26,7 @@ t_line	initline(void)
 	return (line);
 }
 */
-void	tracelinetwo(t_line line, t_par par, int xi, int yi)
+void	tracelinetwo_bonus(t_line line, t_par par, int xi, int yi)
 {
 	int	a;
 	int	dir;
@@ -42,14 +42,14 @@ void	tracelinetwo(t_line line, t_par par, int xi, int yi)
 	}
 }
 
-void	traceline(t_line line, t_par par, int xi, int yi)
+void	traceline_bonus(t_line line, t_par par, int xi, int yi)
 {
 	int	a;
 	int	dir;
 
 	a = 0;
 	if (abs(line.dfx) > abs(line.dfy))
-		tracelinetwo(line, par, xi, yi);
+		tracelinetwo_bonus(line, par, xi, yi);
 	else if (abs(line.dfx) <= abs(line.dfy))
 	{
 		dir = line.dfy / (abs(line.dfy));
@@ -63,7 +63,7 @@ void	traceline(t_line line, t_par par, int xi, int yi)
 	}
 }
 
-void	makinglinesx(t_par par)
+void	makinglinesx_bonus(t_par par)
 {
 	t_line	line;
 	int		x;
@@ -78,20 +78,20 @@ void	makinglinesx(t_par par)
 			line.dfx = par.mapx[x + 1][y] - par.mapx[x][y];
 			line.dfy = par.mapy[x + 1][y] - par.mapy[x][y];
 			if (line.dfy || line.dfx)
-				traceline(line, par, par.mapx[x][y], par.mapy[x][y]);
+				traceline_bonus(line, par, par.mapx[x][y], par.mapy[x][y]);
 			y++;
 		}
 		x++;
 	}
 }
 
-void	makinglines(t_par par)
+void	makinglines_bonus(t_par par)
 {
 	t_line	line;
 	int		x;
 	int		y;
 
-	makinglinesx(par);
+	makinglinesx_bonus(par);
 	y = 0;
 	while (y + 1 < par.somy)
 	{
@@ -101,7 +101,7 @@ void	makinglines(t_par par)
 			line.dfx = par.mapx[x][y + 1] - par.mapx[x][y];
 			line.dfy = par.mapy[x][y + 1] - par.mapy[x][y];
 			if (line.dfy || line.dfx)
-				traceline(line, par, par.mapx[x][y], par.mapy[x][y]);
+				traceline_bonus(line, par, par.mapx[x][y], par.mapy[x][y]);
 			x++;
 		}
 		y++;

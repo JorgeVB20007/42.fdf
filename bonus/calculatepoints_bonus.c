@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf_bonus.h"
 
 t_par	calculatemappointstwo_bonus(t_par par)
 {
@@ -44,6 +44,6 @@ t_par	calculatemappoints_bonus(t_par par)
 	else
 		par.cy = TY / 2 - (sqrt(2.0) * sin((float)M_PI / par.angle) \
 		* (par.somy / 3.0) * par.soa);
-	par = calculatemappointstwo(par);
+	par = calculatemappointstwo_bonus(par);
 	return (par);
 }

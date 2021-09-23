@@ -10,57 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-//			vv	DELETE STUFF BELOW  vv
-/*
-void	printmaps(t_par par)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	printf("\n\n ----  Map given (top view) ----\n");
-	while (par.somy > y)
-	{
-		x = 0;
-		while (par.somx > x)
-		{
-			printf("%3d ", par.map[x][y]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-	y = 0;
-	printf("\n\n ----  Map point x coordinate ----\n");
-	while (par.somy > y)
-	{
-		x = 0;
-		while (par.somx > x)
-		{
-			printf("%3d ", par.mapx[x][y]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-	y = 0;
-	printf("\n\n ----  Map point y coordinate ----\n");
-	while (par.somy > y)
-	{
-		x = 0;
-		while (par.somx > x)
-		{
-			printf("%3d ", par.mapy[x][y]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-}
-*/
-// 			^^ DELETE STUFF ABOVE ^^
+#include "../includes/fdf_bonus.h"
 
 t_par	resetmaps_bonus(t_par	par)
 {
@@ -88,13 +38,13 @@ t_par	resetmaps_bonus(t_par	par)
 
 t_par	magic_happening_bonus(t_par par)
 {
-	par = calculatemappoints(par);
+	par = calculatemappoints_bonus(par);
 	if (par.somx == 1 && par.somy == 1)
 		mlx_pixel_put (par.gnrl_ptr, par.win_ptr, TX / 2, TY / 2, 16776960);
 	if (!par.somx && !par.somy)
 		return (par);
-	makinglines(par);
-	par = resetmaps(par);
+	makinglines_bonus(par);
+	par = resetmaps_bonus(par);
 	return (par);
 }
 
@@ -105,11 +55,11 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		exit(0);
-	par = createstruct(argv);
+	par = createstruct_bonus(argv);
 	gnrl_ptr = mlx_init();
 	par.gnrl_ptr = gnrl_ptr;
-	par.win_ptr = mlx_new_window(gnrl_ptr, TX, TY, "|");
-	par = magic_happening(par);
-	mlx_key_hook(par.win_ptr, key_pressed, &par);
+	par.win_ptr = mlx_new_window(gnrl_ptr, TX, TY, "jvacaris' fdf (bonus)");
+	par = magic_happening_bonus(par);
+	mlx_key_hook(par.win_ptr, key_pressed_bonus, &par);
 	mlx_loop(par.gnrl_ptr);
 }

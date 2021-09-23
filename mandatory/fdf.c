@@ -10,57 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-//			vv	DELETE STUFF BELOW  vv
-/*
-void	printmaps(t_par par)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	printf("\n\n ----  Map given (top view) ----\n");
-	while (par.somy > y)
-	{
-		x = 0;
-		while (par.somx > x)
-		{
-			printf("%3d ", par.map[x][y]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-	y = 0;
-	printf("\n\n ----  Map point x coordinate ----\n");
-	while (par.somy > y)
-	{
-		x = 0;
-		while (par.somx > x)
-		{
-			printf("%3d ", par.mapx[x][y]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-	y = 0;
-	printf("\n\n ----  Map point y coordinate ----\n");
-	while (par.somy > y)
-	{
-		x = 0;
-		while (par.somx > x)
-		{
-			printf("%3d ", par.mapy[x][y]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-}
-*/
-// 			^^ DELETE STUFF ABOVE ^^
+#include "../includes/fdf.h"
 
 t_par	resetmaps(t_par	par)
 {
@@ -108,8 +58,8 @@ int	main(int argc, char **argv)
 	par = createstruct(argv);
 	gnrl_ptr = mlx_init();
 	par.gnrl_ptr = gnrl_ptr;
-	par.win_ptr = mlx_new_window(gnrl_ptr, TX, TY, "|");
+	par.win_ptr = mlx_new_window(gnrl_ptr, TX, TY, "jvacaris' fdf");
 	par = magic_happening(par);
-	mlx_key_hook(par.win_ptr, key_pressed, &par);
+	mlx_key_hook(par.win_ptr, key_pressed, (void *)0);
 	mlx_loop(par.gnrl_ptr);
 }

@@ -10,77 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-/*
-static int	countandcheckbs(char *str)
-{
-	int		n;
-	int		a;
+#include "../includes/fdf.h"
 
-	a = 0;
-	n = 0;
-	while (str[a])
-	{
-		while (str[a] == ' ' || str[a] == '\n')
-			a++;
-		if (str[a] == '-' || str[a] == '+')
-			a++;
-		if (ft_isdigit(str[a]))
-		{
-			while (ft_isdigit(str[a]))
-				a++;
-			n++;
-			if ((str[a] != ' ' && str[a] != '\n') && str[a])
-				exit (0);
-		}
-		else if (str[a])
-			exit (0);
-		while ((str[a] == ' ' || str[a] == '\n') && str[a])
-			a++;
-	}
-	return (n);
-}
-
-t_par	putthingsinmaptwo(t_par par, char *full_line, int y, int *p)
-{
-	int	x;
-
-	x = 0;
-	while (x < par.somx)
-	{
-		if (full_line[*p] == '\n')
-			(*p)++;
-		while (full_line[*p] == ' ')
-			(*p)++;
-		par.map[x][y] = ft_atoi(&full_line[(*p)++]);
-		if (par.map[x][y] > par.highest)
-			par.highest = par.map[x][y];
-		if (par.map[x][y] < par.lowest)
-			par.lowest = par.map[x][y];
-		while (ft_isdigit(full_line[*p]))
-			(*p)++;
-		x++;
-	}
-	return (par);
-}
-
-t_par	putthingsinmap(t_par par, char	*full_line)
-{
-	int	y;
-	int	p;
-
-	y = 0;
-	p = 0;
-	par.highest = -2147483648;
-	par.lowest = 2147483647;
-	while (y < par.somy)
-	{
-		par = putthingsinmaptwo(par, full_line, y, &p);
-		y++;
-	}
-	return (par);
-}
-*/
 static t_par	doingsomecallocs(t_par par)
 {
 	int	fd;
@@ -95,6 +26,32 @@ static t_par	doingsomecallocs(t_par par)
 		par.mapx[fd] = ft_calloc(sizeof(int), par.somy);
 		par.mapy[fd] = ft_calloc(sizeof(int), par.somy);
 		fd++;
+	}
+	return (par);
+}
+
+t_par	doingsplitstwo(t_par par, char **first_split)
+{
+	int		x;
+	int		y;
+	char	**second_split;
+
+	y = 0;
+	while (y < par.somy)
+	{
+		x = 0;
+		second_split = ft_split(first_split[y], ' ');
+		while (second_split[x] != NULL)
+		{
+			if (!ft_isdigit(second_split[x][0]))
+				par.map[x][y] = 0;
+			else
+				par.map[x][y] = ft_atoi(second_split[x]);
+			x++;
+		}
+		while (x < par.somx)
+			par.map[x++][y] = 0;
+		y++;
 	}
 	return (par);
 }
@@ -121,24 +78,7 @@ t_par	doingsplits(t_par par, char *full_line)
 	}
 	par.somy = y;
 	par = doingsomecallocs(par);
-	x = 0;
-	y = 0;
-	while (y < par.somy)
-	{
-		x = 0;
-		second_split = ft_split(first_split[y], ' ');
-		while (second_split[x] != NULL)
-		{
-			if (!ft_isdigit(second_split[x][0]))
-				par.map[x][y] = 0;
-			else
-				par.map[x][y] = ft_atoi(second_split[x]);
-			x++;
-		}
-		while (x < par.somx)
-			par.map[x++][y] = 0;
-		y++;
-	}
+	par = doingsplitstwo(par, first_split);
 	return (par);
 }
 
@@ -168,5 +108,6 @@ t_par	createstruct(char **argv)
 	par.angle = 6.0;
 	par.pcx = 0;
 	par.pcy = 0;
+	close (fd);
 	return (par);
 }

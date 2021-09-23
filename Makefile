@@ -10,20 +10,20 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	fdf.c \
-		inputs.c \
-		calculatepoints.c \
-		makinglines.c \
-		key_pressed.c \
+SRCS =	mandatory/fdf.c \
+		mandatory/inputs.c \
+		mandatory/calculatepoints.c \
+		mandatory/makinglines.c \
+		mandatory/key_pressed.c \
 
-SRCS_BONUS =	fdf_bonus.c \
-				inputs_bonus.c \
-				calculatepoints_bonus.c \
-				makinglines_bonus.c \
-				key_pressed_bonus.c \
+SRCS_BONUS =	bonus/fdf_bonus.c \
+				bonus/inputs_bonus.c \
+				bonus/calculatepoints_bonus.c \
+				bonus/makinglines_bonus.c \
+				bonus/key_pressed_bonus.c \
 
-GNL =	get_next_line_utils.c \
-		get_next_line.c \
+GNL =	gnl/get_next_line_utils.c \
+		gnl/get_next_line.c \
 
 OBJS = ${SRCS:.c=.o}
 OBJS_BONUS = ${SRCS_BONUS:.c=.o}
@@ -35,31 +35,39 @@ PATH_MLX = ./mlx/
 PATH_LIBFT = ./libft/
 PATH_MANDATORY = ./mandatory/
 PATH_BONUS = ./bonus/
+PATH_MLX = ./mlx/
 
 NAME = fdf
+NAME_BONUS = fdf_bonus
 LIBFT = libft.a
-LIBFT_PATH = ./libft/
 CC = cc
 RM = rm -f
-MLX = /usr/local/include
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 SUFFIX = -lmlx -framework OpenGL -framework AppKit
 
 all:		${NAME}
-${NAME}:	${OBJS}
-			${CC} ${CFLAGS} -L {PATH_LIBFT}
-
-${NAME_BONUS}:	${PATH_MLX} ${LIBFT_PATH}${LIBFT} ${GNL_PATH}${GNL} ${OBJS_BONUS}
-			${CC} ${CFLAGS} -I ${MLX} ${LIBFT_PATH}${LIBFT} ${OBJS} -o ${NAME} -L ${MLX} ${SUFFIX}
-
+${NAME}:	${OBJS} ${LIBFT} ${MLX}
+			${CC} ${CFLAGS} libft/${LIBFT} ${OBJS} ${GNL} -I ${PATH_LIBFT} -I ${PATH_INCLUDES} -I ${PATH_MLX} ${SUFFIX} -o ${NAME}
 ${LIBFT}:	
-			make -C ${LIBFT_PATH}
+			@make -C ${PATH_LIBFT}
+${MLX}:
+			@make -C ${PATH_MLX}
+
+bonus:			${NAME_BONUS}
+${NAME_BONUS}:	${OBJS_BONUS} ${LIBFT} ${MLX}
+				${CC} ${CFLAGS} libft/${LIBFT} ${OBJS_BONUS} ${GNL} -I ${PATH_LIBFT} -I ${PATH_INCLUDES} -I ${PATH_MLX} ${SUFFIX} -o ${NAME_BONUS}
+${LIBFT}:	
+			@make -C ${PATH_LIBFT}
+${MLX}:
+			@make -C ${PATH_MLX}
+
 clean:
-	@${RM} ${OBJS}
-	@make clean -C ${LIBFT_PATH}
+	@${RM} ${OBJS} ${OBJS_BONUS} gnl/*.o
+	@make clean -C ${PATH_LIBFT}
+	@make clean -C ${PATH_MLX}
 	@echo ".o's are no more!"
 fclean:		clean
 	@${RM} ${NAME} libft/${LIBFT}
-	@echo "(including ./fdf!)"
+	@echo "(including .a's and fdf*)"
 re:		fclean all
 .PHONY: all clean fclean re

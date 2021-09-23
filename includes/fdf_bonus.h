@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
-# include "libft/libft.h"
-# include "gnl/get_next_line.h"
+# include "../libft/libft.h"
+# include "../gnl/get_next_line.h"
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
@@ -51,10 +51,10 @@ typedef struct s_line
 }					t_line;
 
 int		main(int argc, char **argv);
-t_par	createstruct(char **argv);
-void	makinglines(t_par par);
-t_par	calculatemappoints(t_par par);
-int		key_pressed(int keycode, t_par *par);
-t_par	magic_happening(t_par par);
+t_par	createstruct_bonus(char **argv);
+void	makinglines_bonus(t_par par);
+t_par	calculatemappoints_bonus(t_par par);
+int		key_pressed_bonus(int keycode, t_par *par);
+t_par	magic_happening_bonus(t_par par);
 
 #endif

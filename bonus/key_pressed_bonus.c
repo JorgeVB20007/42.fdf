@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf_bonus.h"
 
 void	eraser_bonus(t_par par)
 {
@@ -50,7 +50,8 @@ static void	resetview_bonus(t_par *par)
 	(*par).angle = 6.0;
 	(*par).pcx = 0;
 	(*par).pcy = 0;
-	(*par).soa = TX / (sqrt(2.0) * 1.15 * (((*par).somx / 2) + ((*par).somy / 2)) + 1);
+	(*par).soa = TX / (sqrt(2.0) * 1.15 * \
+	(((*par).somx / 2) + ((*par).somy / 2)) + 1);
 }
 
 int	key_pressed_bonus(int keycode, t_par *par)
@@ -68,14 +69,14 @@ int	key_pressed_bonus(int keycode, t_par *par)
 	else if (keycode == 2)
 		(*par).pcx -= (TX / 10);
 	else if (keycode == 125)
-		(*par).angle = angles((*par).angle, -1);
+		(*par).angle = angles_bonus((*par).angle, -1);
 	else if (keycode == 126)
-		(*par).angle = angles((*par).angle, 1);
+		(*par).angle = angles_bonus((*par).angle, 1);
 	else if (keycode == 53)
 		exit (0);
 	else if (keycode == 29)
-		resetview(par);
-	eraser(*par);
-	*par = magic_happening(*par);
+		resetview_bonus(par);
+	eraser_bonus(*par);
+	*par = magic_happening_bonus(*par);
 	return (0);
 }

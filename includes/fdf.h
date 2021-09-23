@@ -13,8 +13,8 @@
 #ifndef FDF_H
 # define FDF_H
 
-# include "libft/libft.h"
-# include "gnl/get_next_line.h"
+# include "../libft/libft.h"
+# include "../gnl/get_next_line.h"
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
@@ -54,7 +54,7 @@ int		main(int argc, char **argv);
 t_par	createstruct(char **argv);
 void	makinglines(t_par par);
 t_par	calculatemappoints(t_par par);
-int		key_pressed(int keycode, t_par *par);
+int		key_pressed(int keycode);
 t_par	magic_happening(t_par par);
 
 #endif
