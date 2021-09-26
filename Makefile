@@ -42,7 +42,7 @@ SUFFIX = -lmlx -framework OpenGL -framework AppKit
 
 all:		${NAME}
 ${NAME}:	${OBJS} ${LIBFT} ${MLX}
-			${CC} ${CFLAGS} libft/${LIBFT} ${OBJS} -I ${PATH_LIBFT} -I ${PATH_INCLUDES} -I ${PATH_MLX} ${SUFFIX} -o ${NAME}
+			${CC} ${CFLAGS} libftjvb/${LIBFT} ${OBJS} -I ${PATH_LIBFT} -I ${PATH_INCLUDES} -I ${PATH_MLX} ${SUFFIX} -o ${NAME}
 ${LIBFT}:	
 			@make -C ${PATH_LIBFT}
 ${MLX}:

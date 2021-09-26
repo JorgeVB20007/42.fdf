@@ -12,20 +12,6 @@
 
 #include "../includes/fdf.h"
 
-/*
-t_line	initline(void)
-{
-	t_line	line;
-
-	line.xi = 0;
-	line.yi = 0;
-	line.xf = 0;
-	line.yf = 0;
-	line.xa = 0;
-	line.ya = 0;
-	return (line);
-}
-*/
 void	tracelinetwo(t_line line, t_par par, int xi, int yi)
 {
 	int	a;

@@ -1,31 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   makinglines.c                                      :+:      :+:    :+:   */
+/*   makinglines_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvacaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/21 20:19:04 by jvacaris          #+#    #+#             */
-/*   Updated: 2021/09/21 20:19:06 by jvacaris         ###   ########.fr       */
+/*   Created: 2021/09/26 22:33:26 by jvacaris          #+#    #+#             */
+/*   Updated: 2021/09/26 22:33:29 by jvacaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf_bonus.h"
 
-/*
-t_line	initline(void)
-{
-	t_line	line;
-
-	line.xi = 0;
-	line.yi = 0;
-	line.xf = 0;
-	line.yf = 0;
-	line.xa = 0;
-	line.ya = 0;
-	return (line);
-}
-*/
 void	tracelinetwo_bonus(t_line line, t_par par, int xi, int yi)
 {
 	int	a;
