@@ -27,7 +27,7 @@ OBJS_BONUS = ${SRCS_BONUS:.c=.o}
 
 PATH_INCLUDES = ./includes/
 PATH_MLX = ./mlx/
-PATH_LIBFT = ./libft/
+PATH_LIBFT = ./libftjvb/
 PATH_MANDATORY = ./mandatory/
 PATH_BONUS = ./bonus/
 PATH_MLX = ./mlx/
@@ -50,7 +50,7 @@ ${MLX}:
 
 bonus:			${NAME_BONUS}
 ${NAME_BONUS}:	${OBJS_BONUS} ${LIBFT} ${MLX}
-				${CC} ${CFLAGS} libft/${LIBFT} ${OBJS_BONUS} -I ${PATH_LIBFT} -I ${PATH_INCLUDES} -I ${PATH_MLX} ${SUFFIX} -o ${NAME_BONUS}
+				${CC} ${CFLAGS} libftjvb/${LIBFT} ${OBJS_BONUS} -I ${PATH_LIBFT} -I ${PATH_INCLUDES} -I ${PATH_MLX} ${SUFFIX} -o ${NAME_BONUS}
 
 clean:
 	@${RM} ${OBJS} ${OBJS_BONUS}
@@ -58,7 +58,7 @@ clean:
 	@make clean -C ${PATH_MLX}
 	@echo ".o's are no more!"
 fclean:		clean
-	@${RM} ${NAME} ${NAME_BONUS} libft/${LIBFT}
+	@${RM} ${NAME} ${NAME_BONUS} libftjvb/${LIBFT}
 	@echo "(including .a's and fdf*)"
 re:		fclean all
 rebonus:		fclean bonus
