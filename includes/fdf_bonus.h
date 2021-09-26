@@ -14,16 +14,15 @@
 # define FDF_BONUS_H
 
 # include "../libft/libft.h"
-# include "../gnl/get_next_line.h"
-# include <stdio.h>
 # include <string.h>
 # include <math.h>
-# include <unistd.h>
 # include <mlx.h>
+# include <fcntl.h>
 
 # define TX	1000
 # define TY 1000
 # define SOA 40
+# define COLOR 16777215
 
 typedef struct s_par
 {

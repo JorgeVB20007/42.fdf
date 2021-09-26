@@ -37,7 +37,7 @@ void	tracelinetwo(t_line line, t_par par, int xi, int yi)
 	{
 		mlx_pixel_put (par.gnrl_ptr, par.win_ptr, xi + ((line.dfx \
 		/ (abs(line.dfx))) * a), (int)(yi + ((float)line.dfy / \
-		fabsf((float)line.dfx)) * (float)a), 16776960);
+		fabsf((float)line.dfx)) * (float)a), COLOR);
 		a++;
 	}
 }
@@ -57,7 +57,7 @@ void	traceline(t_line line, t_par par, int xi, int yi)
 		{
 			mlx_pixel_put (par.gnrl_ptr, par.win_ptr, (int)(xi + \
 			((float)line.dfx / fabsf((float)line.dfy)) * (float)a), \
-			yi + ((line.dfy / (abs(line.dfy))) * a), 16753920);
+			yi + ((line.dfy / (abs(line.dfy))) * a), COLOR);
 			a++;
 		}
 	}

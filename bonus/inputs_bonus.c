@@ -47,12 +47,15 @@ t_par	doingsplitstwo_bonus(t_par par, char **first_split)
 				par.map[x][y] = 0;
 			else
 				par.map[x][y] = ft_atoi(second_split[x]);
-			x++;
+			free (second_split[x++]);
 		}
+		free (second_split);
+		free (first_split[y]);
 		while (x < par.somx)
 			par.map[x++][y] = 0;
 		y++;
 	}
+	free (first_split[y]);
 	return (par);
 }
 
@@ -64,21 +67,31 @@ t_par	doingsplits_bonus(t_par par, char *full_line)
 	int		y;
 
 	y = 0;
-	x = 0;
 	first_split = ft_split(full_line, '\n');
 	par.somx = 0;
 	while (first_split[y] != NULL)
 	{
-		second_split = ft_split(first_split[y], ' ');
+		x = 0;
+		second_split = ft_split(first_split[y++], ' ');
 		while (second_split[x] != NULL)
-			x++;
+			free (second_split[x++]);
+		free (second_split);
 		if (x > par.somx)
 			par.somx = x;
-		y++;
 	}
 	par.somy = y;
 	par = doingsomecallocs_bonus(par);
 	par = doingsplitstwo_bonus(par, first_split);
+	free (first_split);
+	return (par);
+}
+
+static t_par	default_par_bonus(t_par par)
+{
+	par.soa = TX / (sqrt(2.0) * 1.1 * ((par.somx / 2) + (par.somy / 2)));
+	par.angle = 6.0;
+	par.pcx = 0;
+	par.pcy = 0;
 	return (par);
 }
 
@@ -91,23 +104,21 @@ t_par	createstruct_bonus(char **argv)
 
 	fd = open(argv[1], 0);
 	full_line = ft_calloc(1, 1);
+	linetoadd = ft_calloc(1, 100001);
 	par.somy = 0;
-	while (get_next_line(fd, &linetoadd) > 0)
+	while (read(fd, linetoadd, 100000) > 0)
 	{
-		full_line = ft_strjoin(full_line, "\n");
 		full_line = ft_strjoin(full_line, linetoadd);
-		par.somy++;
+		if (linetoadd[0] == '\n')
+			par.somy++;
+		free (linetoadd);
+		linetoadd = ft_calloc(1, 100001);
 	}
-	if (linetoadd[1] == ' ')
-		par.somy++;
-	full_line = ft_strjoin(full_line, "\n");
-	full_line = ft_strjoin(full_line, linetoadd);
+	free (linetoadd);
 	full_line = ft_strjoin(full_line, "\n\0");
 	par = doingsplits_bonus(par, full_line);
-	par.soa = TX / (sqrt(2.0) * 1.1 * ((par.somx / 2) + (par.somy / 2)));
-	par.angle = 6.0;
-	par.pcx = 0;
-	par.pcy = 0;
+	free (full_line);
+	par = default_par_bonus(par);
 	close (fd);
 	return (par);
 }

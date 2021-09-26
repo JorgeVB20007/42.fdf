@@ -23,8 +23,6 @@ t_par	resetmaps(t_par	par)
 		y = 0;
 		while (y < par.somy)
 		{
-			par.mapx[x][y] = 0;
-			par.mapy[x][y] = 0;
 			par.cx = 0;
 			par.cy = 0;
 			par.highest = 0;
@@ -60,6 +58,6 @@ int	main(int argc, char **argv)
 	par.gnrl_ptr = gnrl_ptr;
 	par.win_ptr = mlx_new_window(gnrl_ptr, TX, TY, "jvacaris' fdf");
 	par = magic_happening(par);
-	mlx_key_hook(par.win_ptr, key_pressed, (void *)0);
+	mlx_key_hook(par.win_ptr, key_pressed, &par);
 	mlx_loop(par.gnrl_ptr);
 }

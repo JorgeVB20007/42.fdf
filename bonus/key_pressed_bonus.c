@@ -54,10 +54,30 @@ static void	resetview_bonus(t_par *par)
 	(((*par).somx / 2) + ((*par).somy / 2)) + 1);
 }
 
+static void	stopit(t_par *par)
+{
+	int	a;
+
+	a = 0;
+	while (a < (*par).somx)
+	{
+		free((*par).map[a]);
+		free((*par).mapx[a]);
+		free((*par).mapy[a]);
+		a++;
+	}
+	free((*par).map);
+	free((*par).mapx);
+	free((*par).mapy);
+	mlx_clear_window((*par).gnrl_ptr, (*par).win_ptr);
+	mlx_destroy_window((*par).gnrl_ptr, (*par).win_ptr);
+	exit (0);
+}
+
 int	key_pressed_bonus(int keycode, t_par *par)
 {
 	if (keycode == 30)
-		(*par).soa *= 1.2;
+		(*par).soa = (*par).soa * 1.2 + 1;
 	else if (keycode == 44 && (*par).soa > 1.3)
 		(*par).soa /= 1.2;
 	else if (keycode == 13)
@@ -73,7 +93,7 @@ int	key_pressed_bonus(int keycode, t_par *par)
 	else if (keycode == 126)
 		(*par).angle = angles_bonus((*par).angle, 1);
 	else if (keycode == 53)
-		exit (0);
+		stopit(par);
 	else if (keycode == 29)
 		resetview_bonus(par);
 	eraser_bonus(*par);

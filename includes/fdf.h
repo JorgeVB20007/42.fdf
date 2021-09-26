@@ -14,16 +14,17 @@
 # define FDF_H
 
 # include "../libft/libft.h"
-# include "../gnl/get_next_line.h"
-# include <stdio.h>
 # include <string.h>
 # include <math.h>
-# include <unistd.h>
 # include <mlx.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
 
 # define TX	1000
 # define TY 1000
 # define SOA 40
+# define COLOR 16777215
 
 typedef struct s_par
 {
@@ -54,7 +55,7 @@ int		main(int argc, char **argv);
 t_par	createstruct(char **argv);
 void	makinglines(t_par par);
 t_par	calculatemappoints(t_par par);
-int		key_pressed(int keycode);
+int		key_pressed(int keycode, t_par *par);
 t_par	magic_happening(t_par par);
 
 #endif
